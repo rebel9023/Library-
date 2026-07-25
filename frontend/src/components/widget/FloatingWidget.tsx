@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Sparkles, X } from 'lucide-react';
+import { Sparkles, X } from 'lucide-react';
 import { ChatWindow } from './ChatWindow';
 
 interface FloatingWidgetProps {
@@ -58,7 +58,7 @@ export const FloatingWidget: React.FC<FloatingWidgetProps> = () => {
           )}
         </div>
         <span className="text-xs font-extrabold tracking-wide uppercase">
-          {isOpen ? 'Close Assistant' : 'Library मित्र Assistant'}
+          {isOpen ? 'Close Assistant' : 'Library Mitra'}
         </span>
       </motion.button>
     </>

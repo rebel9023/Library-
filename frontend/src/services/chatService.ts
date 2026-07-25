@@ -3,151 +3,142 @@ import { ChatMessage } from '../types';
 
 const API_BASE = '/api';
 
+export const OPAC_DIRECTORY = {
+  central: { name: 'Central Library OPAC', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/' },
+  sop: { name: 'SOP OPAC (Pharmacy)', url: 'https://opac.paruluniversity.ac.in/sopwebopac/' },
+  rhmc: { name: 'RHMC OPAC (Homoeopathy)', url: 'https://opac.paruluniversity.ac.in/rhmcwebopac/' },
+  piv: { name: 'PIV OPAC (Veterinary)', url: 'https://opac.paruluniversity.ac.in/pivwebopac/' },
+  pit: { name: 'PIT OPAC (Engineering & Tech)', url: 'https://opac.paruluniversity.ac.in/pitwebopac/' },
+  pipr: { name: 'PIPR OPAC (Paramedical)', url: 'https://opac.paruluniversity.ac.in/piprwebopac/' },
+  piph: { name: 'PIPH OPAC (Public Health)', url: 'https://opac.paruluniversity.ac.in/piphwebopac/' },
+  pin: { name: 'PIN OPAC (Nursing)', url: 'https://opac.paruluniversity.ac.in/pinwebopac/' },
+  pimsr: { name: 'PIMSR OPAC (Medical Sciences)', url: 'https://opac.paruluniversity.ac.in/pimsrwebopac/' },
+  pimr: { name: 'PIMR OPAC (Management)', url: 'https://opac.paruluniversity.ac.in/pimrwebopac/' },
+  pihr: { name: 'PIHR OPAC (Hotel Management)', url: 'https://opac.paruluniversity.ac.in/pihrwebopac/' },
+  piayr: { name: 'PIAYR OPAC (Ayurved)', url: 'https://opac.paruluniversity.ac.in/piayrwebopac/' },
+  pia: { name: 'PIA OPAC (Applied Sciences)', url: 'https://opac.paruluniversity.ac.in/piawebopac/' },
+  piar: { name: 'PIAR OPAC (Architecture)', url: 'https://opac.paruluniversity.ac.in/piarwebopac/' },
+  jnhmc: { name: 'JNHMC OPAC (Homoeopathy)', url: 'https://opac.paruluniversity.ac.in/jnhmcwebopac/' },
+  bca: { name: 'BCA OPAC (Computer Applications)', url: 'https://opac.paruluniversity.ac.in/bcawebopac/' },
+  ahmc: { name: 'AHMC OPAC (Homoeopathy)', url: 'https://opac.paruluniversity.ac.in/ahmcwebopac/' },
+  aacl: { name: 'AACL OPAC (Fine Arts & Humanities)', url: 'https://opac.paruluniversity.ac.in/aaclwebopac/' }
+};
+
 /**
- * Master OPAC Directory & Client-Side Response Synthesizer Engine for Library Mitra
+ * Client-Side Master Prompt Synthesizer for Library Mitra
  */
 function generateClientLibrarianResponse(query: string): { response: string; sources: any[]; intent: string; toolUsed: string } {
   const qLower = query.toLowerCase();
 
-  // OPAC Book Search / Subject Book Queries
-  if (qLower.includes('pharmacology') || qLower.includes('pharmacy') || qLower.includes('drug')) {
+  // Greeting Handler
+  if (qLower === 'hi' || qLower === 'hello' || qLower === 'namaste' || qLower.includes('who are you') || qLower.includes('greeting')) {
     return {
-      intent: 'OPAC Book Search (Pharmacy & Pharmacology)',
-      toolUsed: 'searchOPAC',
+      intent: 'Greeting & Assistance Role',
+      toolUsed: 'LibraryMitraRole',
       sources: [
-        { title: 'SOP OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' },
-        { title: 'PIMSR OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pimsrwebopac/', category: 'OPAC Catalog' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+        { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' }
       ],
-      response: `Pharmacology and Pharmacy books are commonly available in SOP, PIMSR, and Central Library OPACs. Please search using the following links:
-
-* [SOP OPAC (Pharmacy Catalog)](https://opac.paruluniversity.ac.in/sopwebopac/)
-* [PIMSR OPAC (Medical Catalog)](https://opac.paruluniversity.ac.in/pimsrwebopac/)
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-
-Is there a specific book title or author you would like to search for?`
+      response: `Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?`
     };
   }
 
-  if (qLower.includes('engineering') || qLower.includes('b.tech') || qLower.includes('diploma') || qLower.includes('computer science') || qLower.includes('bca')) {
+  // Subject Search: Pharmacology / Pharmacy Books (Example 1)
+  if (qLower.includes('pharmacology') || qLower.includes('pharmacy book') || qLower.includes('drug book')) {
     return {
-      intent: 'OPAC Book Search (Engineering & Technology)',
+      intent: 'Pharmacy & Pharmacology OPAC Search',
       toolUsed: 'searchOPAC',
       sources: [
-        { title: 'PIT OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pitwebopac/', category: 'OPAC Catalog' },
-        { title: 'BCA OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/bcawebopac/', category: 'OPAC Catalog' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+        { title: OPAC_DIRECTORY.sop.name, url: OPAC_DIRECTORY.sop.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.pimsr.name, url: OPAC_DIRECTORY.pimsr.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `Engineering, Computer Science, and Technology books can be searched in the following OPAC catalogs:
+      response: `Pharmacology books are commonly available in SOP, PIMSR, and Central Library OPACs. Please search using the following links:
 
-* [PIT OPAC (Engineering & Technology)](https://opac.paruluniversity.ac.in/pitwebopac/)
-* [BCA OPAC (Computer Applications)](https://opac.paruluniversity.ac.in/bcawebopac/)
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-
-Would you like recommendations for technical reference books or IEEE research papers?`
+* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
+* [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
     };
   }
 
-  if (qLower.includes('gray') || qLower.includes('anatomy') || qLower.includes('medical') || qLower.includes('medicine')) {
+  // Subject Search: Engineering Books (Example 2)
+  if (qLower.includes('engineering') || qLower.includes('b.tech') || qLower.includes('technical book')) {
     return {
-      intent: 'OPAC Book Search (Medical & Anatomy)',
+      intent: 'Engineering & Technology OPAC Search',
       toolUsed: 'searchOPAC',
       sources: [
-        { title: 'JNHMC OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/jnhmcwebopac/', category: 'OPAC Catalog' },
-        { title: 'SOP OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+        { title: OPAC_DIRECTORY.pit.name, url: OPAC_DIRECTORY.pit.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `Medical, Anatomy, and Healthcare books are indexed across our health science libraries. Please search using the following OPAC links:
+      response: `You can search Engineering books in:
 
-* [JNHMC OPAC (Medical Catalog)](https://opac.paruluniversity.ac.in/jnhmcwebopac/)
-* [SOP OPAC (Pharmacy & Health)](https://opac.paruluniversity.ac.in/sopwebopac/)
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-
-Note: I cannot verify real-time copy availability unless checked directly on the OPAC portal.`
+* [PIT OPAC (Engineering & Technology)](${OPAC_DIRECTORY.pit.url})
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
     };
   }
 
-  if (qLower.includes('law') || qLower.includes('legal') || qLower.includes('constitution')) {
+  // Specific Book Query: Gray's Anatomy or Live Book Availability (Example 3)
+  if (qLower.includes('gray') || qLower.includes('anatomy') || qLower.includes('is available') || qLower.includes('available book')) {
     return {
-      intent: 'OPAC Book Search (Law)',
+      intent: 'Book Availability Verification',
       toolUsed: 'searchOPAC',
       sources: [
-        { title: 'PIV OPAC (Law Catalog)', url: 'https://opac.paruluniversity.ac.in/pivwebopac/', category: 'OPAC Catalog' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+        { title: OPAC_DIRECTORY.jnhmc.name, url: OPAC_DIRECTORY.jnhmc.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.sop.name, url: OPAC_DIRECTORY.sop.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `Law and legal reference volumes are available in the PIV Law Library and Central Library. Please search:
+      response: `I cannot verify live availability unless connected to the OPAC database. Please search:
 
-* [PIV OPAC (Law Library Catalog)](https://opac.paruluniversity.ac.in/pivwebopac/)
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-
-Would you also like to access the Manupatra Legal Research Portal?`
+* [JNHMC OPAC](${OPAC_DIRECTORY.jnhmc.url})
+* [SOP OPAC](${OPAC_DIRECTORY.sop.url})
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
     };
   }
 
-  if (qLower.includes('management') || qLower.includes('mba') || qLower.includes('business') || qLower.includes('finance')) {
-    return {
-      intent: 'OPAC Book Search (Management)',
-      toolUsed: 'searchOPAC',
-      sources: [
-        { title: 'PIMR OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pimrwebopac/', category: 'OPAC Catalog' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
-      ],
-      response: `Management, Finance, and Business books can be searched in:
-
-* [PIMR OPAC (Management Studies Catalog)](https://opac.paruluniversity.ac.in/pimrwebopac/)
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-
-Would you like access to EBSCO Business Source Ultimate case studies?`
-    };
-  }
-
-  if (qLower.includes('opac') || qLower.includes('where can i find') || qLower.includes('which library has') || qLower.includes('is available') || qLower.includes('book search')) {
+  // OPAC Search Query & Directory List
+  if (qLower.includes('opac') || qLower.includes('where can i find this book') || qLower.includes('which library has this book') || qLower.includes('search book')) {
     return {
       intent: 'OPAC Directory Search',
       toolUsed: 'searchOPAC',
       sources: [
-        { title: 'Central Library OPAC', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' },
-        { title: 'PIT OPAC (Engineering)', url: 'https://opac.paruluniversity.ac.in/pitwebopac/', category: 'OPAC Catalog' },
-        { title: 'SOP OPAC (Pharmacy)', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' }
+        { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'Central OPAC' },
+        { title: OPAC_DIRECTORY.pit.name, url: OPAC_DIRECTORY.pit.url, category: 'Engineering' },
+        { title: OPAC_DIRECTORY.sop.name, url: OPAC_DIRECTORY.sop.url, category: 'Pharmacy' }
       ],
-      response: `Hello! You can search for books across all 17 Parul University library OPAC portals:
+      response: `Hello! I am Library Mitra. You can search over 200,000 print books across Parul University's OPAC portals:
 
-* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
-* [PIT OPAC (Engineering & Tech)](https://opac.paruluniversity.ac.in/pitwebopac/)
-* [SOP OPAC (Pharmacy)](https://opac.paruluniversity.ac.in/sopwebopac/)
-* [PIMSR OPAC (Medical Sciences)](https://opac.paruluniversity.ac.in/pimsrwebopac/)
-* [PIMR OPAC (Management)](https://opac.paruluniversity.ac.in/pimrwebopac/)
-* [PIV OPAC (Law Library)](https://opac.paruluniversity.ac.in/pivwebopac/)
-* [BCA OPAC (Computer Applications)](https://opac.paruluniversity.ac.in/bcawebopac/)
-* [PIN OPAC (Nursing)](https://opac.paruluniversity.ac.in/pinwebopac/)
+🏛️ **Central Library:**
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})
 
-Which subject or book title would you like help locating?`
+📚 **Academic Libraries:**
+* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
+* [PIT OPAC (Engineering & Tech)](${OPAC_DIRECTORY.pit.url})
+* [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
+* [PIMR OPAC (Management)](${OPAC_DIRECTORY.pimr.url})
+* [BCA OPAC (Computer Applications)](${OPAC_DIRECTORY.bca.url})
+* [PIN OPAC (Nursing)](${OPAC_DIRECTORY.pin.url})
+* [PIAR OPAC (Architecture)](${OPAC_DIRECTORY.piar.url})
+* [PIAYR OPAC (Ayurved)](${OPAC_DIRECTORY.piayr.url})
+* [JNHMC OPAC (Homoeopathy)](${OPAC_DIRECTORY.jnhmc.url})
+* [RHMC OPAC](${OPAC_DIRECTORY.rhmc.url}) | [PIV OPAC](${OPAC_DIRECTORY.piv.url}) | [PIPR OPAC](${OPAC_DIRECTORY.pipr.url}) | [PIPH OPAC](${OPAC_DIRECTORY.piph.url}) | [PIHR OPAC](${OPAC_DIRECTORY.pihr.url}) | [PIA OPAC](${OPAC_DIRECTORY.pia.url}) | [AHMC OPAC](${OPAC_DIRECTORY.ahmc.url}) | [AACL OPAC](${OPAC_DIRECTORY.aacl.url})`
     };
   }
 
-  // IEEE
+  // IEEE Xplore
   if (qLower.includes('ieee')) {
     return {
-      intent: 'IEEE Research Database',
+      intent: 'IEEE Research Database Routing',
       toolUsed: 'searchIEEE',
       sources: [
-        { title: 'IEEE Xplore Digital Access', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' },
+        { title: 'IEEE Xplore Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' },
         { title: 'Knimbus Remote Access', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
       ],
-      response: `Hello! IEEE Xplore is accessible campus-wide and remotely via Knimbus.
+      response: `Hello! IEEE Xplore Digital Library is accessible campus-wide and remotely via Knimbus.
 
 📍 **[IEEE Xplore Digital Access Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**  
-Parul University provides IP-authenticated and 24/7 remote EZProxy access to IEEE Xplore containing over 5 million engineering and computer science research papers, IEEE standards, and conference proceedings.
+Parul University provides access to over 5 million engineering and computer science research papers, standards, and conference proceedings.
 
-🗺️ **Navigation Path:**
-Parul University Libraries → Online Resources → IEEE Xplore
-
-💡 **Suggested Resources:**
-- SCOPUS Research Database
-- Web of Science Citation Index
-- NPTEL Video Lectures & Courseware
-
-Would you like me to recommend research papers or tutorials related to your topic?`
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})
+* [PIT OPAC (Engineering & Tech)](${OPAC_DIRECTORY.pit.url})`
     };
   }
 
@@ -159,86 +150,64 @@ Would you like me to recommend research papers or tutorials related to your topi
       sources: [
         { title: 'Knimbus Remote Login Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
       ],
-      response: `Hello! Knimbus provides 24/7 off-campus access to all Parul University subscribed e-resources.
+      response: `Hello! I am Library Mitra. **Knimbus Remote Access** allows 24/7 off-campus login to subscribed e-journals and e-books using your official student email (@paruluniversity.ac.in).
 
-📍 **[Knimbus Remote Login Portal](https://www.paruluniversity.ac.in/academics/pu-libraries/)**  
-Access subscribed e-databases, e-journals, and e-books 24/7 from off-campus using your official email credentials (\`@paruluniversity.ac.in\`) or by downloading the **mLibrary / Knimbus App** on iOS & Android.
-
-🗺️ **Navigation Path:**
-Parul University Libraries → Remote Access → Knimbus Portal
-
-💡 **Suggested Resources:**
-- IEEE Xplore Digital Library
-- SCOPUS Citation Database
-- Central Library OPAC Catalog
-
-Would you like assistance setting up your Knimbus mobile app?`
+📍 **[Knimbus Remote Login Portal](https://www.paruluniversity.ac.in/academics/pu-libraries/)**`
     };
   }
 
-  // Timings
-  if (qLower.includes('timing') || qLower.includes('hour') || qLower.includes('open') || qLower.includes('close') || qLower.includes('reading room') || qLower.includes('reading hall')) {
+  // Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex
+  if (qLower.includes('scopus') || qLower.includes('heinonline') || qLower.includes('lexisnexis') || qLower.includes('manupatra') || qLower.includes('micromedex') || qLower.includes('ebsco') || qLower.includes('delnet')) {
     return {
-      intent: 'Library Timings & Schedule',
+      intent: 'E-Resources & Database Support',
+      toolUsed: 'searchDatabases',
+      sources: [
+        { title: 'Online Research Databases', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Databases' }
+      ],
+      response: `Hello! Parul University provides campus-wide access to Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex, EBSCO, and DELNET.
+
+📍 **[Online Academic Resources Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**`
+    };
+  }
+
+  // Library Timings
+  if (qLower.includes('timing') || qLower.includes('hour') || qLower.includes('open') || qLower.includes('reading room') || qLower.includes('reading hall')) {
+    return {
+      intent: 'Library Timings',
       toolUsed: 'searchGyanoday',
       sources: [
-        { title: 'Gyanoday Bhavan Timings', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' }
+        { title: 'Gyanoday Bhavan Schedule', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' }
       ],
-      response: `Hello! Here are the official operating hours for Gyanoday Bhavan Central Library:
+      response: `Hello! Here are the Gyanoday Bhavan Library operating hours:
 
-📍 **[Gyanoday Bhavan Operating Schedule](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home)**  
 ⏰ **Central Library**: Monday to Saturday, **8:00 AM to 8:00 PM**  
-📖 **Reading Rooms / Hall**: Open **24/7 (round-the-clock)** during university mid-term and semester examinations.  
-📚 **Book Circulation Counter**: Monday to Saturday, **9:00 AM to 6:00 PM**.
-
-🗺️ **Navigation Path:**
-Gyanoday Bhavan → Library Services → Operating Hours
-
-💡 **Suggested Resources:**
-- OPAC Book Catalog Search
-- Book Bank Scheme Enrollment
-- Quiet Reading Rooms
-
-Please let me know if you'd like assistance with reading room seating or borrowing rules!`
+📖 **Reading Rooms / Reading Hall**: Open **24/7 (round-the-clock)** during university examinations.`
     };
   }
 
-  // Turnitin
-  if (qLower.includes('turnitin') || qLower.includes('plagiarism') || qLower.includes('similarity')) {
+  // Turnitin & Citation Assistance
+  if (qLower.includes('turnitin') || qLower.includes('plagiarism') || qLower.includes('citation')) {
     return {
-      intent: 'Turnitin Research Support',
+      intent: 'Turnitin & Citation Assistance',
       toolUsed: 'searchResearchSupport',
       sources: [
-        { title: 'Turnitin Originality Check', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support', category: 'Research Support' }
+        { title: 'Research Support & Turnitin', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support', category: 'Research Support' }
       ],
-      response: `Hello! Turnitin originality checks are provided for all Ph.D. dissertations, Master theses, and research papers.
+      response: `Hello! Parul University provides Turnitin originality checks for dissertations and research papers (<10% similarity).
 
-📍 **[Turnitin Research Support & Plagiarism Verification](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support)**  
-Maintain similarity scores below **10%** as per UGC guidelines.
-
-📧 **Submission Email:** Send your manuscript to **turnitin@paruluniversity.ac.in**
-
-🗺️ **Navigation Path:**
-Gyanoday Bhavan → Research Support → Turnitin Anti-Plagiarism
-
-💡 **Suggested Resources:**
-- Citation Assistance (APA, MLA, IEEE, Chicago)
-- SCOPUS & Web of Science Indexing
-- Thesis & Dissertation Writing Guidelines
-
-Would you like detailed UGC plagiarism policy guidelines?`
+📧 **Submission Email:** **turnitin@paruluniversity.ac.in**  
+📍 **[Research Support & Turnitin Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support)**`
     };
   }
 
-  // Default Fallback
+  // Default Missing Info Rule
   return {
-    intent: 'General Academic Support',
+    intent: 'General Library Mitra Support',
     toolUsed: 'searchGyanoday',
     sources: [
-      { title: 'Parul University Libraries Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Website' },
-      { title: 'Central Library OPAC', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
     ],
-    response: `Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?`
+    response: `I am unable to verify this information at the moment. Please contact Gyanoday Bhavan Library.`
   };
 }
 
@@ -269,7 +238,7 @@ export const sendChatMessage = async (
       };
     }
   } catch (err) {
-    // Network fallback to Client Synthesizer Engine
+    // Fallback to Master Prompt Synthesizer
   }
 
   const clientSynth = generateClientLibrarianResponse(message);
@@ -286,8 +255,8 @@ export const sendChatMessage = async (
 };
 
 /**
- * Stream real-time human typing tokens via Server-Sent Events (SSE)
- * With automatic Client-Side Token Synthesizer for Vercel / Static Hosting
+ * Stream real-time typing tokens via Server-Sent Events (SSE)
+ * With automatic Client-Side Master Prompt Token Synthesizer
  */
 export const streamChatMessage = async (
   message: string,
@@ -357,10 +326,10 @@ export const streamChatMessage = async (
       return;
     }
   } catch (err) {
-    // Network / Vercel static fallback
+    // Network / Static Fallback
   }
 
-  // Client-side Token-by-Token Streaming Synthesizer for Vercel Static Hosting
+  // Client-side Token Synthesizer for Master Prompt
   const clientSynth = generateClientLibrarianResponse(message);
   const words = clientSynth.response.split(' ');
 
@@ -369,14 +338,14 @@ export const streamChatMessage = async (
     if (typeof onToken === 'function') {
       onToken(token);
     }
-    await new Promise(r => setTimeout(r, 18));
+    await new Promise(r => setTimeout(r, 16));
   }
 
   if (typeof onComplete === 'function') {
     onComplete(clientSynth.sources, {
       intent: clientSynth.intent,
       agentName: 'Library Mitra Assistant',
-      agentRole: 'Senior Librarian & Academic Support',
+      agentRole: 'Parul University Library Assistant',
       toolUsed: clientSynth.toolUsed,
       isFallback: false
     });

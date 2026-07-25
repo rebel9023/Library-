@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Minimize2, X, Moon, Sun, Sparkles } from 'lucide-react';
+import { Send, Minimize2, X, Sun, Moon, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatMessage as ChatMessageType } from '../../types';
 import { ChatMessage } from './ChatMessage';
 import { TypingIndicator } from './TypingIndicator';
 import { QuickPrompts } from './QuickPrompts';
-import { streamChatMessage } from '../../services/chatService';
+import { streamChatMessage, OPAC_DIRECTORY } from '../../services/chatService';
 
 interface ChatWindowProps {
   onClose: () => void;
@@ -28,8 +28,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       sender: 'ai',
       text: "Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?",
       sources: [
-        { title: 'Gyanoday Bhavan Library Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Website' },
-        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+        { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' },
+        { title: 'Gyanoday Bhavan Library Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Website' }
       ],
       timestamp: new Date().toISOString()
     }
@@ -151,7 +151,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               <h3 className="font-extrabold text-sm text-white tracking-wide">Library Mitra</h3>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
-            <p className="text-[10px] text-slate-400">Official Gyanoday Bhavan Library Assistant</p>
+            <p className="text-[10px] text-slate-400">Gyanoday Bhavan AI Assistant</p>
           </div>
         </div>
 
@@ -210,7 +210,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask Library Mitra about books, OPAC, IEEE, Knimbus, journals..."
+            placeholder="Ask Library Mitra about OPAC books, IEEE, Knimbus..."
             disabled={isLoading}
             className={`flex-1 px-4 py-2.5 rounded-2xl text-xs focus:outline-none transition-all ${
               isDarkMode
