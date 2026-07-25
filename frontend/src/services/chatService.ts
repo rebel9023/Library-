@@ -42,8 +42,72 @@ function generateClientLibrarianResponse(query: string): { response: string; sou
     };
   }
 
-  // Parul University Overview & Information Handler
-  if (qLower.includes('university') || qLower.includes('parul') || qLower.includes('campus') || qLower.includes('institute') || qLower.includes('vadodara')) {
+  // Specific Keyword Handlers (High Priority Matching)
+
+  // SCOPUS Research Database Dedicated Handler
+  if (qLower.includes('scopus')) {
+    return {
+      intent: 'SCOPUS Citation & Research Database',
+      toolUsed: 'searchScopus',
+      sources: [
+        { title: 'Knimbus Remote Database Portal (GSuite)', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
+        { title: 'Gyanoday Bhavan Online Resources', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Databases' }
+      ],
+      response: `Namaste! I'd be delighted to guide you on Parul University's SCOPUS subscription.
+
+🔬 **Parul University SCOPUS & Citation Access:**
+Parul University provides full campus-wide IP-based access and 24/7 remote login via **Knimbus** to **SCOPUS** — the world's largest abstract and citation database of peer-reviewed research literature.
+
+🎓 **How Parul University Researchers Use SCOPUS:**
+1. **Search & Journal Discovery:** Access over 40+ million scientific papers across Engineering, Medicine, Pharmacy, Science, and Management.
+2. **Author Profile & h-Index:** Track your citation metrics, author h-index score, and affiliation under **Parul University**.
+3. **Journal Quality Verification:** Verify UGC-CARE listed, SCOPUS-indexed journals and CiteScore metrics before paper submission.
+
+📍 **Access Portals:**
+* [Knimbus In-Campus & Remote Database Access (GSuite)](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite)
+* [Gyanoday Bhavan Online Resources Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)
+
+Would you like assistance calculating your author h-index or verifying a specific journal's SCOPUS indexing status today?`
+    };
+  }
+
+  // IEEE Xplore
+  if (qLower.includes('ieee')) {
+    return {
+      intent: 'IEEE Research Database Routing',
+      toolUsed: 'searchIEEE',
+      sources: [
+        { title: 'Knimbus Remote Access (GSuite)', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
+        { title: 'IEEE Xplore Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' }
+      ],
+      response: `Hello! IEEE Xplore Digital Library is accessible campus-wide and 24/7 remotely via Knimbus for all Parul University students and faculty.
+
+📍 **[Knimbus 24/7 Remote Login Portal (GSuite Link)](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite)**  
+Parul University provides access to over 5 million engineering and computer science research papers, IEEE standards, and conference proceedings.
+
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})
+* [PIT OPAC (Engineering & Tech)](${OPAC_DIRECTORY.pit.url})`
+    };
+  }
+
+  // Question Papers & Institutional Repository (IR DSpace)
+  if (qLower.includes('question paper') || qLower.includes('exam paper') || qLower.includes('previous year') || qLower.includes('institutional repository') || qLower.includes('dspace') || qLower.includes('xmlui')) {
+    return {
+      intent: 'Institutional Repository Question Papers',
+      toolUsed: 'searchInstitutionalRepository',
+      sources: [
+        { title: 'Parul University Institutional Repository (IR DSpace)', url: 'https://ir.paruluniversity.ac.in/xmlui/', category: 'Institutional Repository' }
+      ],
+      response: `Hello! I am Library Mitra. Parul University maintains an official **DSpace Institutional Repository** for past semester question papers, dissertations, and research archives.
+
+📍 **[Parul University Institutional Repository (IR DSpace Portal)](https://ir.paruluniversity.ac.in/xmlui/)**
+
+You can search and download mid-term and end-semester question papers (2018–2025) across B.Tech, MBA, Pharmacy, Medical, Law, and Applied Sciences.`
+    };
+  }
+
+  // Broad Parul University Overview & Information Handler
+  if (qLower.includes('about university') || qLower.includes('tell about university') || qLower.includes('tell me about university') || qLower === 'parul university' || qLower === 'university' || qLower.includes('about pu') || qLower.includes('where is parul')) {
     return {
       intent: 'Parul University Overview',
       toolUsed: 'searchUniversityInfo',
