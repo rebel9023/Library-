@@ -281,18 +281,15 @@ export const App: React.FC = () => {
                   High-speed campus network caching for thousands of NPTEL, SWAYAM, and National Digital Library of India (NDLI) video courseware.
                 </p>
               </div>
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleChipClick('What video lectures are available?');
-                }}
+              <a 
+                href="https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/video-library"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1 pt-2 cursor-pointer"
               >
                 <span>Browse Video Library</span>
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
             {/* Card 5 */}
