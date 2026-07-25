@@ -77,8 +77,15 @@ export const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = () => {
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
               Real-Time Student Website Visitors & Chat Traffic
             </h2>
-            <p className="text-xs text-slate-400 mt-1">
-              Live tracking synchronized with Gyanoday Bhavan Google Site (<a href="https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home" target="_blank" rel="noreferrer" className="text-amber-400 hover:underline">sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home</a>).
+            <p className="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-2">
+              <span>Live tracking synchronized with:</span>
+              <a href="https://www.paruluniversity.ac.in/academics/pu-libraries/" target="_blank" rel="noreferrer" className="text-amber-400 hover:underline font-semibold flex items-center gap-1">
+                🌐 PU Libraries Portal
+              </a>
+              <span>|</span>
+              <a href="https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home" target="_blank" rel="noreferrer" className="text-amber-400 hover:underline font-semibold flex items-center gap-1">
+                🏛️ Gyanoday Bhavan Site
+              </a>
             </p>
           </div>
 
