@@ -1,0 +1,148 @@
+version: '3.8'
+
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: gyanai-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Frontend Web App & Embedded Widget
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gyanai-frontend
+    restart: always
+    environment:
+      - VITE_API_URL=http://backend:5000
+
+  # Node.js Express API & RAG Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gyanai-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=gyanai_db
+      - POSTGRES_USER=gyanai_user
+      - POSTGRES_PASSWORD=gyanai_secure_password_2026
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_COLLECTION=gyanoday_knowledge
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=qwen:3-8b
+    depends_on:
+      - postgres
+      - redis
+      - qdrant
+      - ollama
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # PostgreSQL Relational Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: gyanai-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: gyanai_db
+      POSTGRES_USER: gyanai_user
+      POSTGRES_PASSWORD: gyanai_secure_password_2026
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gyanai_user -d gyanai_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis In-Memory Cache
+  redis:
+    image: redis:7-alpine
+    container_name: gyanai-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Qdrant Vector Database
+  qdrant:
+    image: qdrant/qdrant:v1.13.0
+    container_name: gyanai-qdrant
+    restart: always
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # Ollama Local LLM Engine (Qwen 3 8B)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: gyanai-ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  # Prometheus Telemetry Collector
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: gyanai-prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  # Grafana Monitoring Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: gyanai-grafana
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:
+  ollama_data:

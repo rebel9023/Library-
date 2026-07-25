@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # Nginx Upstream Load Balancer (Round-Robin Node Distribution)
+  nginx:
+    image: nginx:alpine
+    container_name: gyanai-prod-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend-1
+      - backend-2
+      - backend-3
+
+  # Node Instance 1
+  backend-1:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gyanai-backend-1
+    restart: always
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - NODE_INSTANCE_ID=1
+      - POSTGRES_HOST=postgres-primary
+      - REDIS_HOST=redis-cluster
+      - QDRANT_URL=http://qdrant-cluster:6333
+      - OLLAMA_URL=http://ollama:11434
+
+  # Node Instance 2
+  backend-2:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gyanai-backend-2
+    restart: always
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - NODE_INSTANCE_ID=2
+      - POSTGRES_HOST=postgres-primary
+      - REDIS_HOST=redis-cluster
+      - QDRANT_URL=http://qdrant-cluster:6333
+      - OLLAMA_URL=http://ollama:11434
+
+  # Node Instance 3
+  backend-3:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gyanai-backend-3
+    restart: always
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - NODE_INSTANCE_ID=3
+      - POSTGRES_HOST=postgres-primary
+      - REDIS_HOST=redis-cluster
+      - QDRANT_URL=http://qdrant-cluster:6333
+      - OLLAMA_URL=http://ollama:11434
+
+  # Redis Cluster / Sentinel
+  redis-cluster:
+    image: redis:7-alpine
+    container_name: gyanai-redis-cluster
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # Qdrant Vector Cluster (Sharded Vector DB)
+  qdrant-cluster:
+    image: qdrant/qdrant:v1.13.0
+    container_name: gyanai-qdrant-cluster
+    restart: always
+    ports:
+      - "6333:6333"
+
+  # PostgreSQL Primary
+  postgres-primary:
+    image: postgres:16-alpine
+    container_name: gyanai-postgres-primary
+    restart: always
+    environment:
+      POSTGRES_DB: gyanai_db
+      POSTGRES_USER: gyanai_user
+      POSTGRES_PASSWORD: gyanai_secure_password_2026
+
+  # PostgreSQL Read Replica
+  postgres-replica:
+    image: postgres:16-alpine
+    container_name: gyanai-postgres-replica
+    restart: always
+    environment:
+      POSTGRES_DB: gyanai_db
+      POSTGRES_USER: gyanai_user
+      POSTGRES_PASSWORD: gyanai_secure_password_2026
+    depends_on:
+      - postgres-primary

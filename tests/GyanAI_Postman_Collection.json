@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "GyanAI Digital Library Intelligence Platform API Suite",
+    "_postman_id": "gyanai-postman-suite-2026",
+    "description": "Automated Postman Test Collection for GyanAI API Health, Auth, Chat, Multi-Agent & SLA Telemetry",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health Check & Security Telemetry",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "2. User JWT Authentication Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@paruluniversity.ac.in\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "3. Multi-Agent RAG Chat Stream",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"How do I access IEEE research papers?\",\n  \"sessionId\": \"postman-session\",\n  \"userId\": \"postman-user\",\n  \"department\": \"B.Tech\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "chat"]
+        }
+      }
+    },
+    {
+      "name": "4. SLA & Performance Benchmarks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/compliance/sla",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "compliance", "sla"]
+        }
+      }
+    },
+    {
+      "name": "5. OWASP Top 10 Audit Report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/compliance/owasp/report",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "compliance", "owasp", "report"]
+        }
+      }
+    }
+  ]
+}
