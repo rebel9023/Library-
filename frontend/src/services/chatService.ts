@@ -373,8 +373,35 @@ Parul University provides access to over 5 million engineering and computer scie
     };
   }
 
-  // Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex, EBSCO, DELNET
-  if (qLower.includes('scopus') || qLower.includes('heinonline') || qLower.includes('lexisnexis') || qLower.includes('manupatra') || qLower.includes('micromedex') || qLower.includes('ebsco') || qLower.includes('delnet') || qLower.includes('e-resource') || qLower.includes('database')) {
+  // SCOPUS Research Database Dedicated Handler
+  if (qLower.includes('scopus')) {
+    return {
+      intent: 'SCOPUS Citation & Research Database',
+      toolUsed: 'searchScopus',
+      sources: [
+        { title: 'Knimbus Remote Database Portal (GSuite)', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
+        { title: 'Gyanoday Bhavan Online Resources', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Databases' }
+      ],
+      response: `Namaste! I'd be delighted to guide you on Parul University's SCOPUS subscription.
+
+🔬 **Parul University SCOPUS & Citation Access:**
+Parul University provides full campus-wide IP-based access and 24/7 remote login via **Knimbus** to **SCOPUS** — the world's largest abstract and citation database of peer-reviewed research literature.
+
+🎓 **How Parul University Researchers Use SCOPUS:**
+1. **Research & Journal Discovery:** Access over 40+ million scientific papers across Engineering, Medicine, Pharmacy, Science, and Management.
+2. **Author Profile & h-Index:** Track your citation metrics, author h-index score, and affiliation under **Parul University**.
+3. **Journal Quality Verification:** Verify UGC-CARE listed, SCOPUS-indexed journals and CiteScore metrics before paper submission.
+
+📍 **Access Portals:**
+* [Knimbus In-Campus & Remote Database Access (GSuite)](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite)
+* [Gyanoday Bhavan Online Resources Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)
+
+Would you like assistance calculating your author h-index or verifying a specific journal's SCOPUS indexing status today?`
+    };
+  }
+
+  // HeinOnline, LexisNexis, Manupatra, Micromedex, EBSCO, DELNET, E-Resources
+  if (qLower.includes('heinonline') || qLower.includes('lexisnexis') || qLower.includes('manupatra') || qLower.includes('micromedex') || qLower.includes('ebsco') || qLower.includes('delnet') || qLower.includes('e-resource') || qLower.includes('database')) {
     return {
       intent: 'E-Resources & Database Support',
       toolUsed: 'searchDatabases',
