@@ -42,6 +42,45 @@ function generateClientLibrarianResponse(query: string): { response: string; sou
     };
   }
 
+  // Parul University Overview & Information Handler
+  if (qLower.includes('about university') || qLower.includes('tell about university') || qLower.includes('tell me about university') || qLower.includes('parul university') || qLower.includes('university info') || qLower.includes('about pu') || qLower.includes('where is parul')) {
+    return {
+      intent: 'Parul University Overview',
+      toolUsed: 'searchUniversityInfo',
+      sources: [
+        { title: 'Parul University Official Portal', url: 'https://www.paruluniversity.ac.in/', category: 'University Portal' },
+        { title: 'Parul University Main Libraries', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'PU Libraries' },
+        { title: 'Gyanoday Bhavan Central Library', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Central Library' }
+      ],
+      response: `Namaste! I'd be delighted to tell you about our university.
+
+🏫 **About Parul University:**
+**Parul University** is a premier **NAAC A++ Accredited** multidisciplinary university located in Vadodara, Gujarat, India. 
+
+Sprawling across a lush 150+ acre campus, Parul University is home to over **63,000+ students** from 50+ countries and all 28 Indian states across 32+ specialized institutes.
+
+🎓 **Academic Programs & Faculties:**
+The university offers 250+ diploma, undergraduate, postgraduate, and doctoral (Ph.D.) programs spanning:
+* **Engineering & Technology** (PIT, PIA)
+* **Pharmacy** (SOP)
+* **Medical & Healthcare** (PIMSR, Nursing, Ayurved, Homoeopathy)
+* **Management & Commerce** (PIMR, PIHR)
+* **Law** (Parul Institute of Law)
+* **Computer Applications & IT** (BCA/MCA)
+* **Architecture, Design & Fine Arts** (PIAR, AACL)
+
+📚 **Library Ecosystem:**
+Our academic infrastructure is supported by the central **Gyanoday Bhavan Library** and 10+ specialized departmental libraries holding over **200,000+ print volumes**, **24,000+ e-journals**, and 24/7 remote database access via **Knimbus**.
+
+📍 **Useful Portal Links:**
+* [Parul University Official Website](https://www.paruluniversity.ac.in/)
+* [PU Libraries Portal](https://www.paruluniversity.ac.in/academics/pu-libraries/)
+* [Gyanoday Bhavan Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home)
+
+Is there a specific department, library, or program you would like to know more about?`
+    };
+  }
+
   // Library Management: Borrowing Limits, Fine & Renewal Policy
   if (qLower.includes('borrow') || qLower.includes('issue') || qLower.includes('fine') || qLower.includes('due date') || qLower.includes('renew') || qLower.includes('limit') || qLower.includes('how many books')) {
     return {
