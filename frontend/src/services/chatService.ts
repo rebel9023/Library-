@@ -38,7 +38,164 @@ function generateClientLibrarianResponse(query: string): { response: string; sou
       sources: [
         { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' }
       ],
-      response: `Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?`
+      response: `Hello! I am Library Mitra, your Parul University Library Assistant. I am here to help you with everything related to library management, books, circulation rules, OPAC search, e-resources, and study spaces at Gyanoday Bhavan. How may I assist you today?`
+    };
+  }
+
+  // Library Management: Borrowing Limits, Fine & Renewal Policy
+  if (qLower.includes('borrow') || qLower.includes('issue') || qLower.includes('fine') || qLower.includes('due date') || qLower.includes('renew') || qLower.includes('limit') || qLower.includes('how many books')) {
+    return {
+      intent: 'Library Management - Borrowing & Fine Policy',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Central Library OPAC Renewal Portal', url: OPAC_DIRECTORY.central.url, category: 'OPAC Renewal' },
+        { title: 'Gyanoday Bhavan Library Rules', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Rules' }
+      ],
+      response: `Hello! As your Library Mitra, here are the official Parul University borrowing & circulation rules:
+
+📚 **Borrowing Entitlement:**
+* **Undergraduate (UG) Students:** 3 books for 14 days
+* **Postgraduate (PG) Students:** 5 books for 14 days
+* **Ph.D. Scholars & Research Fellows:** 8 books for 30 days
+* **Faculty Members:** 10 books for 30 days
+
+🔄 **Book Renewal:**
+Books can be renewed **once** for an additional 14 days via the [Central Library OPAC](${OPAC_DIRECTORY.central.url}) portal if no other student has reserved the book.
+
+⚠️ **Overdue Fine:**
+An overdue fine of **₹2 per day per book** is charged after the due date to ensure fair access for all students.
+
+Would you like me to guide you on renewing your issued books online?`
+    };
+  }
+
+  // Library Management: Library Membership & Smart Student Card
+  if (qLower.includes('membership') || qLower.includes('card') || qLower.includes('register') || qLower.includes('id card')) {
+    return {
+      intent: 'Library Management - Membership',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Gyanoday Bhavan Membership Guide', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Membership' }
+      ],
+      response: `Hello! All enrolled Parul University students and faculty members automatically receive **Gyanoday Bhavan Library Membership** upon admission.
+
+💳 **How to Activate / Use Your Library Card:**
+1. Your official **Parul University Smart ID Card** serves as your digital barcode library card.
+2. Present your ID card at the Gyanoday Bhavan circulation counter for quick barcode scanning during book issue/return.
+3. Your default OPAC login username is your **Enrollment Number** (e.g., \`210303100000\`).
+
+Is there anything specific regarding your library account I can help you with?`
+    };
+  }
+
+  // Library Management: Book Reservation & Hold
+  if (qLower.includes('reserve') || qLower.includes('hold') || qLower.includes('book hold')) {
+    return {
+      intent: 'Library Management - Book Reservation',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'Central Library OPAC Reservation', url: OPAC_DIRECTORY.central.url, category: 'OPAC Hold' }
+      ],
+      response: `Hello! If a book you need is currently issued to another student, you can place a **Book Reservation (Hold)** so it is held for you upon return.
+
+📌 **Steps to Reserve a Book Online:**
+1. Log into your account on the [Central Library OPAC Portal](${OPAC_DIRECTORY.central.url}).
+2. Search for the book title or author.
+3. Click **"Place Hold / Reserve"** next to the book details.
+4. You will receive an SMS/email notification when the book arrives at the circulation counter!
+
+Would you like direct links to your department's OPAC catalog?`
+    };
+  }
+
+  // Library Management: Book Bank Scheme
+  if (qLower.includes('book bank') || qLower.includes('textbook scheme')) {
+    return {
+      intent: 'Library Management - Book Bank Scheme',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Gyanoday Bhavan Book Bank Scheme', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Book Bank' }
+      ],
+      response: `Hello! Parul University operates an official **Book Bank Scheme** providing full semester textbook sets to students.
+
+📖 **Book Bank Scheme Highlights:**
+* **Eligible Students:** Meritorious students, SC/ST categories, and needy applicants across Engineering, Pharmacy, Management, and Medical faculties.
+* **Duration:** Full semester (books are returned after final term exams).
+* **Application:** Forms are issued at Gyanoday Bhavan circulation counter during the first two weeks of every semester.
+
+Please visit the Central Library Helpdesk at the start of term to submit your application!`
+    };
+  }
+
+  // Library Management: Inter-Library Loan (DELNET Document Delivery)
+  if (qLower.includes('delnet') || qLower.includes('inter library') || qLower.includes('document delivery') || qLower.includes('other university')) {
+    return {
+      intent: 'Library Management - Inter-Library Loan',
+      toolUsed: 'searchDelnet',
+      sources: [
+        { title: 'DELNET Document Delivery', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'DELNET' }
+      ],
+      response: `Hello! If a book or research paper is not available in Parul University's 200,000+ collection, we procure it for you via **DELNET (Developing Library Network)**.
+
+🌐 **Inter-Library Loan (ILL) Service:**
+* We order physical books or digital copies from over 7,500 member university libraries across India.
+* Physical books arrive at Gyanoday Bhavan within 3–5 working days.
+* Research paper journal articles are emailed directly to your inbox.
+
+📍 **[Online Academic Resources Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**`
+    };
+  }
+
+  // Library Management: Lost Book & Damage Policy
+  if (qLower.includes('lost book') || qLower.includes('damaged book') || qLower.includes('replace book')) {
+    return {
+      intent: 'Library Management - Lost Book Policy',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Gyanoday Bhavan Rules', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Rules' }
+      ],
+      response: `Hello! If a borrowed library book is accidentally lost or damaged, please inform the Gyanoday Bhavan Helpdesk immediately.
+
+📝 **Lost Book Settlement Options:**
+1. **Option A:** Replace the lost book with a **brand new copy of the latest edition** + ₹50 binding fee.
+2. **Option B:** Pay the **current market price of the book** + 15% administrative processing fee.
+
+Prompt reporting stops further accumulation of overdue fines!`
+    };
+  }
+
+  // Library Management: Recommend a Book / Acquisition
+  if (qLower.includes('recommend') || qLower.includes('purchase book') || qLower.includes('new book request')) {
+    return {
+      intent: 'Library Management - Book Acquisition Request',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Gyanoday Bhavan Book Recommendation', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Acquisition' }
+      ],
+      response: `Hello! Students and faculty members are encouraged to recommend new books, journals, or e-resources for the university collection.
+
+💡 **How to Submit a Book Recommendation:**
+1. Fill out the **Book Purchase Recommendation Form** at Gyanoday Bhavan Helpdesk or online via [Central Library OPAC](${OPAC_DIRECTORY.central.url}).
+2. The Library Advisory Committee reviews and approves requests every month for procurement.
+
+We welcome your suggestions to enrich our library collection!`
+    };
+  }
+
+  // Library Management: No Dues / Clearance Certificate
+  if (qLower.includes('no dues') || qLower.includes('clearance') || qLower.includes('leaving certificate')) {
+    return {
+      intent: 'Library Management - Clearance',
+      toolUsed: 'searchLibraryRules',
+      sources: [
+        { title: 'Gyanoday Bhavan No Dues Desk', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Clearance' }
+      ],
+      response: `Hello! A **Library No Dues / Clearance Certificate** is required before graduating or withdrawing from Parul University.
+
+📋 **Clearance Checklist:**
+1. Return all borrowed books to Gyanoday Bhavan or your department library.
+2. Clear any pending overdue fines at the circulation counter.
+3. Obtain digital signature / stamp on your clearance form at the Central Library counter.`
     };
   }
 
