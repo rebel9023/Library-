@@ -300,18 +300,15 @@ export const App: React.FC = () => {
                   Digital repository of mid-term and semester exam papers (2018–2025) across B.Tech, MBA, Pharmacy, Medical, and Law faculties.
                 </p>
               </div>
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleChipClick('Where can I find past examination question papers?');
-                }}
+              <a 
+                href="https://ir.paruluniversity.ac.in/xmlui/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 pt-2 cursor-pointer"
               >
-                <span>Access Question Papers</span>
+                <span>Access Question Papers (IR Portal)</span>
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
 

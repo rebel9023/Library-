@@ -172,6 +172,22 @@ Parul University provides access to over 5 million engineering and computer scie
     };
   }
 
+  // Question Papers & Institutional Repository (IR DSpace)
+  if (qLower.includes('question paper') || qLower.includes('exam paper') || qLower.includes('previous year') || qLower.includes('institutional repository') || qLower.includes('dspace') || qLower.includes('xmlui')) {
+    return {
+      intent: 'Institutional Repository Question Papers',
+      toolUsed: 'searchInstitutionalRepository',
+      sources: [
+        { title: 'Parul University Institutional Repository (IR DSpace)', url: 'https://ir.paruluniversity.ac.in/xmlui/', category: 'Institutional Repository' }
+      ],
+      response: `Hello! I am Library Mitra. Parul University maintains an official **DSpace Institutional Repository** for past semester question papers, dissertations, and research archives.
+
+📍 **[Parul University Institutional Repository (IR DSpace Portal)](https://ir.paruluniversity.ac.in/xmlui/)**
+
+You can search and download mid-term and end-semester question papers (2018–2025) across B.Tech, MBA, Pharmacy, Medical, Law, and Applied Sciences.`
+    };
+  }
+
   // Library Timings
   if (qLower.includes('timing') || qLower.includes('hour') || qLower.includes('open') || qLower.includes('reading room') || qLower.includes('reading hall')) {
     return {
