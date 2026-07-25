@@ -43,7 +43,7 @@ function generateClientLibrarianResponse(query: string): { response: string; sou
   }
 
   // Parul University Overview & Information Handler
-  if (qLower.includes('about university') || qLower.includes('tell about university') || qLower.includes('tell me about university') || qLower.includes('parul university') || qLower.includes('university info') || qLower.includes('about pu') || qLower.includes('where is parul')) {
+  if (qLower.includes('university') || qLower.includes('parul') || qLower.includes('campus') || qLower.includes('institute') || qLower.includes('vadodara')) {
     return {
       intent: 'Parul University Overview',
       toolUsed: 'searchUniversityInfo',
@@ -461,26 +461,27 @@ You can search and download mid-term and end-semester question papers (2018–20
     };
   }
 
-  // Default Helpful Librarian Assistance for General Queries
+  // Default Warm Human Librarian Response for Any General Query
   return {
-    intent: 'General Library Mitra Support',
+    intent: 'General Senior Librarian Assistance',
     toolUsed: 'searchGyanoday',
     sources: [
-      { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' },
-      { title: 'Gyanoday Bhavan Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' },
-      { title: 'Knimbus Remote Access', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
+      { title: 'Parul University Official Portal', url: 'https://www.paruluniversity.ac.in/', category: 'University Portal' },
+      { title: 'Central Library OPAC Search', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' },
+      { title: 'Knimbus Remote Database Portal', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
+      { title: 'Gyanoday Bhavan Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' }
     ],
-    response: `Hello! I am Library Mitra, your Parul University Library Assistant.
+    response: `Namaste! I am Library Mitra, your Parul University Senior Librarian Assistant.
 
-I can assist you with finding books, journals, OPAC resources, e-resources, and library services. You can search our library collections using the following quick links:
+I'd be delighted to assist you with books, research papers, OPAC search, e-resources, or library facilities at Parul University. 
 
-* [Central Library OPAC](${OPAC_DIRECTORY.central.url})
-* [PIT OPAC (Engineering & Tech)](${OPAC_DIRECTORY.pit.url})
-* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
-* [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
-* [Knimbus 24/7 Remote Access](https://www.paruluniversity.ac.in/academics/pu-libraries/)
+📚 **Quick Library Portals:**
+* [Central Library OPAC Catalog](${OPAC_DIRECTORY.central.url}) (Search 200,000+ Print Books)
+* [Knimbus Remote & In-Campus Database Access](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite) (IEEE Xplore, SCOPUS, Web of Science, EBSCO)
+* [DSpace Question Paper Archive](https://ir.paruluniversity.ac.in/xmlui/) (Mid-term & End-semester Exam Papers 2018–2025)
+* [Gyanoday Bhavan Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home)
 
-If you are looking for a specific book or service, please tell me the book title, subject, or service name!`
+Please tell me the specific book title, subject, course, or library service you would like to know more about!`
   };
 }
 
