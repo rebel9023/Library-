@@ -238,7 +238,7 @@ We welcome your suggestions to enrich our library collection!`
     };
   }
 
-  // Subject Search: Pharmacology / Pharmacy Books (Example 1)
+  // Subject Search: Pharmacology / Pharmacy Books
   if (qLower.includes('pharmacology') || qLower.includes('pharmacy book') || qLower.includes('drug book')) {
     return {
       intent: 'Pharmacy & Pharmacology OPAC Search',
@@ -248,15 +248,21 @@ We welcome your suggestions to enrich our library collection!`
         { title: OPAC_DIRECTORY.pimsr.name, url: OPAC_DIRECTORY.pimsr.url, category: 'OPAC' },
         { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `Pharmacology books are commonly available in SOP, PIMSR, and Central Library OPACs. Please search using the following links:
+      response: `Namaste! I'd be happy to help you find Pharmacology and Pharmacy books.
 
-* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
+📚 **Pharmacology Book Locations:**
+Pharmacology and Pharmaceutical Sciences titles are available across our specialized Pharmacy, Medical, and Central Library collections. 
+
+Please search real-time book availability and shelf locations using the following OPAC portals:
+* [SOP OPAC (School of Pharmacy)](${OPAC_DIRECTORY.sop.url})
 * [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
-* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
+* [Central Library OPAC (Gyanoday Bhavan)](${OPAC_DIRECTORY.central.url})
+
+Would you like assistance searching for a specific pharmacology textbook title or author?`
     };
   }
 
-  // Subject Search: Engineering Books (Example 2)
+  // Subject Search: Engineering Books
   if (qLower.includes('engineering') || qLower.includes('b.tech') || qLower.includes('technical book')) {
     return {
       intent: 'Engineering & Technology OPAC Search',
@@ -265,28 +271,42 @@ We welcome your suggestions to enrich our library collection!`
         { title: OPAC_DIRECTORY.pit.name, url: OPAC_DIRECTORY.pit.url, category: 'OPAC' },
         { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `You can search Engineering books in:
+      response: `Hello! I'd be glad to assist you with Engineering & Technology books.
 
-* [PIT OPAC (Engineering & Technology)](${OPAC_DIRECTORY.pit.url})
-* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
+🔧 **Engineering Book Catalogs:**
+Engineering textbooks (Computer Science, Mechanical, Civil, Electrical, EC, Robotics) can be searched in our technology libraries:
+
+* [PIT OPAC (Parul Institute of Technology)](${OPAC_DIRECTORY.pit.url})
+* [Central Library OPAC (Gyanoday Bhavan)](${OPAC_DIRECTORY.central.url})
+
+You can also access 5 million+ IEEE research papers online via [Knimbus Remote Access](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite).
+
+Is there a specific engineering subject or semester textbook you are looking for?`
     };
   }
 
-  // Specific Book Query: Gray's Anatomy or Live Book Availability (Example 3)
+  // Specific Book Query: Gray's Anatomy or Live Book Availability
   if (qLower.includes('gray') || qLower.includes('anatomy') || qLower.includes('is available') || qLower.includes('available book')) {
     return {
       intent: 'Book Availability Verification',
       toolUsed: 'searchOPAC',
       sources: [
         { title: OPAC_DIRECTORY.jnhmc.name, url: OPAC_DIRECTORY.jnhmc.url, category: 'OPAC' },
+        { title: OPAC_DIRECTORY.pimsr.name, url: OPAC_DIRECTORY.pimsr.url, category: 'OPAC' },
         { title: OPAC_DIRECTORY.sop.name, url: OPAC_DIRECTORY.sop.url, category: 'OPAC' },
         { title: OPAC_DIRECTORY.central.name, url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
       ],
-      response: `I cannot verify live availability unless connected to the OPAC database. Please search:
+      response: `Hello! Regarding the availability of **Gray's Anatomy** or specific medical textbooks:
 
-* [JNHMC OPAC](${OPAC_DIRECTORY.jnhmc.url})
-* [SOP OPAC](${OPAC_DIRECTORY.sop.url})
-* [Central Library OPAC](${OPAC_DIRECTORY.central.url})`
+📖 **Checking Book Availability:**
+I cannot verify live shelf availability unless connected directly to the real-time OPAC database. Please check current issue status and shelf rack numbers on our OPAC search portals:
+
+* [JNHMC OPAC (Medical/Homoeopathy)](${OPAC_DIRECTORY.jnhmc.url})
+* [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
+* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
+* [Central Library OPAC (Gyanoday Bhavan)](${OPAC_DIRECTORY.central.url})
+
+If the book is currently issued to another student, you can place an online hold/reservation!`
     };
   }
 
