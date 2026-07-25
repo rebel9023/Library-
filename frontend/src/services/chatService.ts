@@ -4,38 +4,154 @@ import { ChatMessage } from '../types';
 const API_BASE = '/api';
 
 /**
- * Client-Side Knowledge Base & 5-Component Response Synthesizer for Vercel Static Deployments
+ * Master OPAC Directory & Client-Side Response Synthesizer Engine for Library Mitra
  */
 function generateClientLibrarianResponse(query: string): { response: string; sources: any[]; intent: string; toolUsed: string } {
   const qLower = query.toLowerCase();
 
-  // Category A: IEEE Xplore
+  // OPAC Book Search / Subject Book Queries
+  if (qLower.includes('pharmacology') || qLower.includes('pharmacy') || qLower.includes('drug')) {
+    return {
+      intent: 'OPAC Book Search (Pharmacy & Pharmacology)',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'SOP OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' },
+        { title: 'PIMSR OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pimsrwebopac/', category: 'OPAC Catalog' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Pharmacology and Pharmacy books are commonly available in SOP, PIMSR, and Central Library OPACs. Please search using the following links:
+
+* [SOP OPAC (Pharmacy Catalog)](https://opac.paruluniversity.ac.in/sopwebopac/)
+* [PIMSR OPAC (Medical Catalog)](https://opac.paruluniversity.ac.in/pimsrwebopac/)
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+
+Is there a specific book title or author you would like to search for?`
+    };
+  }
+
+  if (qLower.includes('engineering') || qLower.includes('b.tech') || qLower.includes('diploma') || qLower.includes('computer science') || qLower.includes('bca')) {
+    return {
+      intent: 'OPAC Book Search (Engineering & Technology)',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'PIT OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pitwebopac/', category: 'OPAC Catalog' },
+        { title: 'BCA OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/bcawebopac/', category: 'OPAC Catalog' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Engineering, Computer Science, and Technology books can be searched in the following OPAC catalogs:
+
+* [PIT OPAC (Engineering & Technology)](https://opac.paruluniversity.ac.in/pitwebopac/)
+* [BCA OPAC (Computer Applications)](https://opac.paruluniversity.ac.in/bcawebopac/)
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+
+Would you like recommendations for technical reference books or IEEE research papers?`
+    };
+  }
+
+  if (qLower.includes('gray') || qLower.includes('anatomy') || qLower.includes('medical') || qLower.includes('medicine')) {
+    return {
+      intent: 'OPAC Book Search (Medical & Anatomy)',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'JNHMC OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/jnhmcwebopac/', category: 'OPAC Catalog' },
+        { title: 'SOP OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Medical, Anatomy, and Healthcare books are indexed across our health science libraries. Please search using the following OPAC links:
+
+* [JNHMC OPAC (Medical Catalog)](https://opac.paruluniversity.ac.in/jnhmcwebopac/)
+* [SOP OPAC (Pharmacy & Health)](https://opac.paruluniversity.ac.in/sopwebopac/)
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+
+Note: I cannot verify real-time copy availability unless checked directly on the OPAC portal.`
+    };
+  }
+
+  if (qLower.includes('law') || qLower.includes('legal') || qLower.includes('constitution')) {
+    return {
+      intent: 'OPAC Book Search (Law)',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'PIV OPAC (Law Catalog)', url: 'https://opac.paruluniversity.ac.in/pivwebopac/', category: 'OPAC Catalog' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Law and legal reference volumes are available in the PIV Law Library and Central Library. Please search:
+
+* [PIV OPAC (Law Library Catalog)](https://opac.paruluniversity.ac.in/pivwebopac/)
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+
+Would you also like to access the Manupatra Legal Research Portal?`
+    };
+  }
+
+  if (qLower.includes('management') || qLower.includes('mba') || qLower.includes('business') || qLower.includes('finance')) {
+    return {
+      intent: 'OPAC Book Search (Management)',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'PIMR OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/pimrwebopac/', category: 'OPAC Catalog' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Management, Finance, and Business books can be searched in:
+
+* [PIMR OPAC (Management Studies Catalog)](https://opac.paruluniversity.ac.in/pimrwebopac/)
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+
+Would you like access to EBSCO Business Source Ultimate case studies?`
+    };
+  }
+
+  if (qLower.includes('opac') || qLower.includes('where can i find') || qLower.includes('which library has') || qLower.includes('is available') || qLower.includes('book search')) {
+    return {
+      intent: 'OPAC Directory Search',
+      toolUsed: 'searchOPAC',
+      sources: [
+        { title: 'Central Library OPAC', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' },
+        { title: 'PIT OPAC (Engineering)', url: 'https://opac.paruluniversity.ac.in/pitwebopac/', category: 'OPAC Catalog' },
+        { title: 'SOP OPAC (Pharmacy)', url: 'https://opac.paruluniversity.ac.in/sopwebopac/', category: 'OPAC Catalog' }
+      ],
+      response: `Hello! You can search for books across all 17 Parul University library OPAC portals:
+
+* [Central Library OPAC](https://opac.paruluniversity.ac.in/centrallibwebopac/)
+* [PIT OPAC (Engineering & Tech)](https://opac.paruluniversity.ac.in/pitwebopac/)
+* [SOP OPAC (Pharmacy)](https://opac.paruluniversity.ac.in/sopwebopac/)
+* [PIMSR OPAC (Medical Sciences)](https://opac.paruluniversity.ac.in/pimsrwebopac/)
+* [PIMR OPAC (Management)](https://opac.paruluniversity.ac.in/pimrwebopac/)
+* [PIV OPAC (Law Library)](https://opac.paruluniversity.ac.in/pivwebopac/)
+* [BCA OPAC (Computer Applications)](https://opac.paruluniversity.ac.in/bcawebopac/)
+* [PIN OPAC (Nursing)](https://opac.paruluniversity.ac.in/pinwebopac/)
+
+Which subject or book title would you like help locating?`
+    };
+  }
+
+  // IEEE
   if (qLower.includes('ieee')) {
     return {
-      intent: 'IEEE Research Database Routing',
+      intent: 'IEEE Research Database',
       toolUsed: 'searchIEEE',
       sources: [
-        { title: 'IEEE Xplore Digital Access Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' },
+        { title: 'IEEE Xplore Digital Access', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' },
         { title: 'Knimbus Remote Access', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
       ],
-      response: `Namaste! I am Library मित्र, delighted to guide you on accessing IEEE Xplore.
+      response: `Hello! IEEE Xplore is accessible campus-wide and remotely via Knimbus.
 
-📍 **[IEEE Xplore Digital Library Access Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**  
-Parul University provides campus-wide IP-based access and 24/7 remote EZProxy/Knimbus access to **IEEE Xplore Digital Library**, containing over 5 million engineering and computer science research papers, IEEE standards, and conference proceedings.
+📍 **[IEEE Xplore Digital Access Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**  
+Parul University provides IP-authenticated and 24/7 remote EZProxy access to IEEE Xplore containing over 5 million engineering and computer science research papers, IEEE standards, and conference proceedings.
 
 🗺️ **Navigation Path:**
 Parul University Libraries → Online Resources → IEEE Xplore
 
 💡 **Suggested Resources:**
-- SCOPUS Research & Citation Database
+- SCOPUS Research Database
 - Web of Science Citation Index
 - NPTEL Video Lectures & Courseware
 
-Is there anything else I can help you find today?`
+Would you like me to recommend research papers or tutorials related to your topic?`
     };
   }
 
-  // Category B: Knimbus Remote Access
+  // Knimbus Remote Access
   if (qLower.includes('knimbus') || qLower.includes('remote') || qLower.includes('off campus')) {
     return {
       intent: 'Knimbus Remote Access Portal',
@@ -43,76 +159,51 @@ Is there anything else I can help you find today?`
       sources: [
         { title: 'Knimbus Remote Login Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
       ],
-      response: `Greetings! Let me assist you with Knimbus 24/7 off-campus access.
+      response: `Hello! Knimbus provides 24/7 off-campus access to all Parul University subscribed e-resources.
 
 📍 **[Knimbus Remote Login Portal](https://www.paruluniversity.ac.in/academics/pu-libraries/)**  
-**Knimbus Remote Access** allows all Parul University students, Ph.D. scholars, and faculty members to access subscribed e-databases, e-journals, and e-books 24/7 from off-campus. Login using your official student/faculty email credentials (\`@paruluniversity.ac.in\`) or download the **mLibrary / Knimbus App** on iOS & Android.
+Access subscribed e-databases, e-journals, and e-books 24/7 from off-campus using your official email credentials (\`@paruluniversity.ac.in\`) or by downloading the **mLibrary / Knimbus App** on iOS & Android.
 
 🗺️ **Navigation Path:**
-Parul University Libraries → Remote Access → Knimbus Login
+Parul University Libraries → Remote Access → Knimbus Portal
 
 💡 **Suggested Resources:**
 - IEEE Xplore Digital Library
 - SCOPUS Citation Database
-- OPAC Online Catalog Search
+- Central Library OPAC Catalog
 
 Would you like assistance setting up your Knimbus mobile app?`
     };
   }
 
-  // Category C: SCOPUS / Web of Science
-  if (qLower.includes('scopus') || qLower.includes('web of science')) {
+  // Timings
+  if (qLower.includes('timing') || qLower.includes('hour') || qLower.includes('open') || qLower.includes('close') || qLower.includes('reading room') || qLower.includes('reading hall')) {
     return {
-      intent: 'Multidisciplinary Citation Database',
-      toolUsed: 'searchScopus',
-      sources: [
-        { title: 'SCOPUS & Web of Science Databases', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Online Resources' }
-      ],
-      response: `Certainly! I'd be happy to guide you through SCOPUS and Web of Science.
-
-📍 **[SCOPUS & Citation Databases](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**  
-**SCOPUS and Web of Science** citation and indexing databases are accessible campus-wide via IP authentication and remotely through Knimbus for all Parul University researchers. Use these portals to search peer-reviewed literature, journal impact factors, and author h-index metrics.
-
-🗺️ **Navigation Path:**
-Gyanoday Bhavan → Online Resources → SCOPUS / Web of Science
-
-💡 **Suggested Resources:**
-- IEEE Xplore Digital Library
-- Turnitin Plagiarism Check
-- UGC Care Listed Journals
-
-Would you like help calculating journal metrics or h-index?`
-    };
-  }
-
-  // Category D: Timings & Operating Hours
-  if (qLower.includes('timing') || qLower.includes('hour') || qLower.includes('open') || qLower.includes('close') || qLower.includes('reading hall')) {
-    return {
-      intent: 'Library Operating Schedule',
+      intent: 'Library Timings & Schedule',
       toolUsed: 'searchGyanoday',
       sources: [
-        { title: 'Gyanoday Bhavan Timings & Hours', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' }
+        { title: 'Gyanoday Bhavan Timings', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' }
       ],
-      response: `Greetings! Here is the official operating schedule for Gyanoday Bhavan Central Library:
+      response: `Hello! Here are the official operating hours for Gyanoday Bhavan Central Library:
 
 📍 **[Gyanoday Bhavan Operating Schedule](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home)**  
 ⏰ **Central Library**: Monday to Saturday, **8:00 AM to 8:00 PM**  
-📖 **Reading Hall**: Open **24/7 (round-the-clock)** during Parul University mid-term and semester examinations.  
+📖 **Reading Rooms / Hall**: Open **24/7 (round-the-clock)** during university mid-term and semester examinations.  
 📚 **Book Circulation Counter**: Monday to Saturday, **9:00 AM to 6:00 PM**.
 
 🗺️ **Navigation Path:**
 Gyanoday Bhavan → Library Services → Operating Hours
 
 💡 **Suggested Resources:**
-- OPAC Book Availability Search
+- OPAC Book Catalog Search
 - Book Bank Scheme Enrollment
-- Quiet Study Room Seating
+- Quiet Reading Rooms
 
 Please let me know if you'd like assistance with reading room seating or borrowing rules!`
     };
   }
 
-  // Category E: Turnitin Anti-Plagiarism Check
+  // Turnitin
   if (qLower.includes('turnitin') || qLower.includes('plagiarism') || qLower.includes('similarity')) {
     return {
       intent: 'Turnitin Research Support',
@@ -120,10 +211,10 @@ Please let me know if you'd like assistance with reading room seating or borrowi
       sources: [
         { title: 'Turnitin Originality Check', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support', category: 'Research Support' }
       ],
-      response: `Welcome! As your Library मित्र, let me walk you through the Turnitin originality check process.
+      response: `Hello! Turnitin originality checks are provided for all Ph.D. dissertations, Master theses, and research papers.
 
 📍 **[Turnitin Research Support & Plagiarism Verification](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/research-support)**  
-Parul University provides **Turnitin Originality Verification** for all Ph.D. dissertations, Master theses, and research papers to maintain similarity scores below **10%** as per UGC guidelines.
+Maintain similarity scores below **10%** as per UGC guidelines.
 
 📧 **Submission Email:** Send your manuscript to **turnitin@paruluniversity.ac.in**
 
@@ -131,7 +222,7 @@ Parul University provides **Turnitin Originality Verification** for all Ph.D. di
 Gyanoday Bhavan → Research Support → Turnitin Anti-Plagiarism
 
 💡 **Suggested Resources:**
-- APA / MLA / IEEE Citation Formatting
+- Citation Assistance (APA, MLA, IEEE, Chicago)
 - SCOPUS & Web of Science Indexing
 - Thesis & Dissertation Writing Guidelines
 
@@ -139,115 +230,15 @@ Would you like detailed UGC plagiarism policy guidelines?`
     };
   }
 
-  // Category F: Question Papers
-  if (qLower.includes('question paper') || qLower.includes('exam paper') || qLower.includes('previous year')) {
-    return {
-      intent: 'Question Paper Repository',
-      toolUsed: 'searchQuestionPapers',
-      sources: [
-        { title: 'Question Paper Archive (2018-2025)', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/institutional-repository', category: 'Repository' }
-      ],
-      response: `Welcome! Here is the link to our digital question paper repository.
-
-📍 **[Past Examination Question Paper Repository (2018–2025)](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/institutional-repository)**  
-Gyanoday Bhavan maintains a digital archive of **past mid-term and semester examination question papers (2018–2025)** across B.Tech, MBA, Pharmacy, Medical, Law, and Applied Sciences.
-
-🗺️ **Navigation Path:**
-Gyanoday Bhavan → Institutional Repository → Question Papers Archive
-
-💡 **Suggested Resources:**
-- NPTEL & SWAYAM Video Lectures
-- OPAC Textbook Search
-- 24/7 Reading Hall Schedule
-
-Which course code or branch question papers are you looking for today?`
-    };
-  }
-
-  // Category G: Library Count / Overview
-  if (qLower.includes('how many library') || qLower.includes('how many libraries') || qLower.includes('campus library') || qLower.includes('campus libraries')) {
-    return {
-      intent: 'Library System Overview',
-      toolUsed: 'searchPULibraries',
-      sources: [
-        { title: 'Parul University Libraries Ecosystem', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Library Overview' }
-      ],
-      response: `Namaste! I am Library मित्र, happy to share our library ecosystem details with you.
-
-📍 **[Parul University Campus Libraries Infrastructure](https://www.paruluniversity.ac.in/academics/pu-libraries/)**  
-Parul University campus features **10+ specialized institutional libraries** anchored by the central **Gyanoday Bhavan Library**, serving over 63,000 students and faculty across all departments.
-
-🏛️ **Key Campus Libraries Include:**  
-1. Gyanoday Bhavan Central Library  
-2. Faculty of Engineering & Technology Library  
-3. Faculty of Management Studies Library  
-4. Faculty of Pharmacy Library  
-5. Parul Institute of Medical Sciences & Research Library  
-6. Parul Institute of Law Library  
-7. Parul Institute of Architecture & Planning Library  
-8. Parul Institute of Nursing Library  
-9. Parul Institute of Ayurved Library  
-10. Parul Institute of Fine Arts Library
-
-🗺️ **Navigation Path:**
-Parul University Libraries → Library Ecosystem Overview
-
-💡 **Suggested Resources:**
-- OPAC Online Catalog Search
-- Knimbus Remote Access Login
-- Central Library Reading Hall
-
-Is there a specific department library or book you would like to locate today?`
-    };
-  }
-
-  // Category H: OPAC Book Search
-  if (qLower.includes('opac') || qLower.includes('book search') || qLower.includes('catalog')) {
-    return {
-      intent: 'OPAC Online Catalog',
-      toolUsed: 'searchOPAC',
-      sources: [
-        { title: 'OPAC Book Catalog Search', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Library Services' }
-      ],
-      response: `Welcome! You can search over 200,000 print books across our libraries via OPAC.
-
-📍 **[OPAC Online Public Access Catalog Search](https://www.paruluniversity.ac.in/academics/pu-libraries/)**  
-Search over **200,000 print volumes and reference books** across all Parul University campus libraries using the **OPAC Catalog**. Check real-time book availability, rack location, and circulation status.
-
-🗺️ **Navigation Path:**
-Parul University Libraries → Services → OPAC Book Search
-
-💡 **Suggested Resources:**
-- Book Bank Scheme Enrollment
-- Knimbus Remote E-Book Access
-- Library Membership Registration
-
-Would you like me to guide you on checking stack locations or borrowing rules?`
-    };
-  }
-
-  // Default Fallback Response
+  // Default Fallback
   return {
-    intent: 'General Academic Library Support',
+    intent: 'General Academic Support',
     toolUsed: 'searchGyanoday',
     sources: [
       { title: 'Parul University Libraries Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Website' },
-      { title: 'Gyanoday Bhavan Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Website' }
+      { title: 'Central Library OPAC', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
     ],
-    response: `Namaste! I am Library मित्र, your AI Digital Library Assistant for Parul University.
-
-📍 **[Parul University Libraries & Gyanoday Bhavan Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home)**  
-I can assist you with searching our **200,000+ print books** via OPAC, accessing **IEEE Xplore & SCOPUS** research databases, setting up **Knimbus 24/7 remote login**, downloading **past exam question papers (2018–2025)**, or submitting theses for **Turnitin plagiarism verification** (\`turnitin@paruluniversity.ac.in\`).
-
-🗺️ **Navigation Path:**
-Parul University Libraries → Academic Services & Resources
-
-💡 **Suggested Resources:**
-- Knimbus 24/7 Remote Access
-- OPAC Online Book Catalog
-- Turnitin Plagiarism Check
-
-Is there anything else I can help you find today?`
+    response: `Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?`
   };
 }
 
@@ -384,8 +375,8 @@ export const streamChatMessage = async (
   if (typeof onComplete === 'function') {
     onComplete(clientSynth.sources, {
       intent: clientSynth.intent,
-      agentName: 'Library मित्र Senior Librarian',
-      agentRole: 'Senior Librarian & Research Consultant',
+      agentName: 'Library Mitra Assistant',
+      agentRole: 'Senior Librarian & Academic Support',
       toolUsed: clientSynth.toolUsed,
       isFallback: false
     });

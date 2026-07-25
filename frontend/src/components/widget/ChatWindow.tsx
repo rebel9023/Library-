@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Minimize2, X, RefreshCw, Moon, Sun, Sparkles } from 'lucide-react';
+import { Send, Minimize2, X, Moon, Sun, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatMessage as ChatMessageType } from '../../types';
 import { ChatMessage } from './ChatMessage';
@@ -26,9 +26,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     {
       id: 'welcome-1',
       sender: 'ai',
-      text: "Namaste! Welcome to **Library मित्र** — your official AI Digital Library Assistant for **Gyanoday Bhavan, Parul University**.\n\nI am your virtual librarian. How can I help you find research papers, question papers, books, or NPTEL courses today?",
+      text: "Hello! I am Library Mitra, your Parul University Library Assistant. I can help you find books, journals, OPAC resources, e-resources, and answer questions related to Gyanoday Bhavan. How may I assist you today?",
       sources: [
-        { title: 'Gyanoday Bhavan Library Homepage', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Website' }
+        { title: 'Gyanoday Bhavan Library Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Website' },
+        { title: 'Central Library OPAC Catalog', url: 'https://opac.paruluniversity.ac.in/centrallibwebopac/', category: 'OPAC Catalog' }
       ],
       timestamp: new Date().toISOString()
     }
@@ -115,7 +116,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           msg.id === botMsgId
             ? {
                 ...msg,
-                text: "I apologize, but I encountered an issue retrieving that resource. Please try again or contact [library@paruluniversity.ac.in](mailto:library@paruluniversity.ac.in)."
+                text: "I am unable to verify this information at the moment. Please contact Gyanoday Bhavan Library."
               }
             : msg
         )
@@ -147,10 +148,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-extrabold text-sm text-white tracking-wide">Library मित्र Assistant</h3>
+              <h3 className="font-extrabold text-sm text-white tracking-wide">Library Mitra</h3>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
-            <p className="text-[10px] text-slate-400">Senior Librarian & Research Consultant</p>
+            <p className="text-[10px] text-slate-400">Official Gyanoday Bhavan Library Assistant</p>
           </div>
         </div>
 
@@ -209,7 +210,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask Library मित्र about books, IEEE, Knimbus, question papers..."
+            placeholder="Ask Library Mitra about books, OPAC, IEEE, Knimbus, journals..."
             disabled={isLoading}
             className={`flex-1 px-4 py-2.5 rounded-2xl text-xs focus:outline-none transition-all ${
               isDarkMode
