@@ -217,6 +217,13 @@ export const sendChatMessage = async (
   userId: string,
   department?: string
 ): Promise<ChatMessage> => {
+  // Track queries count
+  try {
+    const qKey = 'pu_gyanoday_queries_count';
+    const currentQ = parseInt(localStorage.getItem(qKey) || '0', 10) + 1;
+    localStorage.setItem(qKey, currentQ.toString());
+  } catch (e) {}
+
   try {
     const res = await axios.post(`${API_BASE}/chat`, {
       message,
@@ -266,6 +273,13 @@ export const streamChatMessage = async (
   onComplete: (sources: any[], metadata?: any) => void,
   department?: string
 ): Promise<void> => {
+  // Track queries count
+  try {
+    const qKey = 'pu_gyanoday_queries_count';
+    const currentQ = parseInt(localStorage.getItem(qKey) || '0', 10) + 1;
+    localStorage.setItem(qKey, currentQ.toString());
+  } catch (e) {}
+
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 4000);

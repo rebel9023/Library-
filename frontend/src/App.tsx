@@ -12,6 +12,21 @@ export const App: React.FC = () => {
   const [heroSearch, setHeroSearch] = useState('');
   const [suggestedQuery, setSuggestedQuery] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    const visitsKey = 'pu_gyanoday_today_visitors';
+    const totalVisitsKey = 'pu_gyanoday_total_visitors';
+    const sessionVisited = sessionStorage.getItem('pu_session_tracked');
+
+    if (!sessionVisited) {
+      sessionStorage.setItem('pu_session_tracked', 'true');
+      const currentToday = parseInt(localStorage.getItem(visitsKey) || '0', 10) + 1;
+      const currentTotal = parseInt(localStorage.getItem(totalVisitsKey) || '0', 10) + 1;
+
+      localStorage.setItem(visitsKey, currentToday.toString());
+      localStorage.setItem(totalVisitsKey, currentTotal.toString());
+    }
+  }, []);
+
   const handleChipClick = (query: string) => {
     setSuggestedQuery(query);
     // Dispatch custom event to trigger floating widget without page refresh
