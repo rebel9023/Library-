@@ -200,14 +200,26 @@ Parul University provides access to over 5 million engineering and computer scie
     };
   }
 
-  // Default Missing Info Rule
+  // Default Helpful Librarian Assistance for General Queries
   return {
     intent: 'General Library Mitra Support',
     toolUsed: 'searchGyanoday',
     sources: [
-      { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC' }
+      { title: 'Central Library OPAC', url: OPAC_DIRECTORY.central.url, category: 'OPAC Search' },
+      { title: 'Gyanoday Bhavan Portal', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/home', category: 'Library Services' },
+      { title: 'Knimbus Remote Access', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
     ],
-    response: `I am unable to verify this information at the moment. Please contact Gyanoday Bhavan Library.`
+    response: `Hello! I am Library Mitra, your Parul University Library Assistant.
+
+I can assist you with finding books, journals, OPAC resources, e-resources, and library services. You can search our library collections using the following quick links:
+
+* [Central Library OPAC](${OPAC_DIRECTORY.central.url})
+* [PIT OPAC (Engineering & Tech)](${OPAC_DIRECTORY.pit.url})
+* [SOP OPAC (Pharmacy)](${OPAC_DIRECTORY.sop.url})
+* [PIMSR OPAC (Medical Sciences)](${OPAC_DIRECTORY.pimsr.url})
+* [Knimbus 24/7 Remote Access](https://www.paruluniversity.ac.in/academics/pu-libraries/)
+
+If you are looking for a specific book or service, please tell me the book title, subject, or service name!`
   };
 }
 
