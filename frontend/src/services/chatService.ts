@@ -142,31 +142,33 @@ Parul University provides access to over 5 million engineering and computer scie
     };
   }
 
-  // Knimbus Remote Access
+  // Knimbus Remote Access & E-Resources
   if (qLower.includes('knimbus') || qLower.includes('remote') || qLower.includes('off campus')) {
     return {
       intent: 'Knimbus Remote Access Portal',
       toolUsed: 'searchKnimbus',
       sources: [
-        { title: 'Knimbus Remote Login Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'Remote Access' }
+        { title: 'Knimbus Remote Login Portal (GSuite)', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
+        { title: 'Parul University Libraries Portal', url: 'https://www.paruluniversity.ac.in/academics/pu-libraries/', category: 'PU Libraries' }
       ],
-      response: `Hello! I am Library Mitra. **Knimbus Remote Access** allows 24/7 off-campus login to subscribed e-journals and e-books using your official student email (@paruluniversity.ac.in).
+      response: `Hello! I am Library Mitra. **Knimbus Remote Access** allows 24/7 in-campus and off-campus remote login to IEEE Xplore, SCOPUS, Web of Science, EBSCO, BMJ, Manupatra & Micromedex using your official GSuite email (@paruluniversity.ac.in).
 
-📍 **[Knimbus Remote Login Portal](https://www.paruluniversity.ac.in/academics/pu-libraries/)**`
+📍 **[Knimbus 24/7 Remote Login Portal (GSuite Link)](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite)**`
     };
   }
 
-  // Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex
-  if (qLower.includes('scopus') || qLower.includes('heinonline') || qLower.includes('lexisnexis') || qLower.includes('manupatra') || qLower.includes('micromedex') || qLower.includes('ebsco') || qLower.includes('delnet')) {
+  // Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex, EBSCO, DELNET
+  if (qLower.includes('scopus') || qLower.includes('heinonline') || qLower.includes('lexisnexis') || qLower.includes('manupatra') || qLower.includes('micromedex') || qLower.includes('ebsco') || qLower.includes('delnet') || qLower.includes('e-resource') || qLower.includes('database')) {
     return {
       intent: 'E-Resources & Database Support',
       toolUsed: 'searchDatabases',
       sources: [
+        { title: 'Knimbus Remote Database Portal', url: 'https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite', category: 'Remote Access' },
         { title: 'Online Research Databases', url: 'https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources', category: 'Databases' }
       ],
-      response: `Hello! Parul University provides campus-wide access to Scopus, HeinOnline, LexisNexis, Manupatra, Micromedex, EBSCO, and DELNET.
+      response: `Hello! Parul University provides campus-wide IP access and 24/7 Knimbus remote access for both in-campus and off-campus use to IEEE Xplore, SCOPUS, Web of Science, EBSCO, BMJ, Manupatra & Micromedex.
 
-📍 **[Online Academic Resources Portal](https://sites.google.com/paruluniversity.ac.in/gyanodaybhavan/online-resources)**`
+📍 **[Knimbus In-Campus & Off-Campus Database Portal](https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite)**`
     };
   }
 

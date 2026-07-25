@@ -229,18 +229,15 @@ export const App: React.FC = () => {
                   Campus-wide IP access and 24/7 Knimbus remote login to IEEE Xplore, SCOPUS, Web of Science, EBSCO, BMJ, Manupatra & Micromedex.
                 </p>
               </div>
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleChipClick('How do I access IEEE Xplore?');
-                }}
+              <a 
+                href="https://paruluniversity.knimbus.com/portal/v2/default/home?loggedInUsing=gsuite"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 pt-2 cursor-pointer"
               >
-                <span>Search Databases</span>
+                <span>Access In-Campus & Remote Databases (Knimbus)</span>
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
             {/* Card 2 */}
