@@ -268,30 +268,7 @@ export const App: React.FC = () => {
               </button>
             </div>
 
-            {/* Card 3 */}
-            <div className="glass-card glass-card-hover p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
-              <div>
-                <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 w-fit mb-4 border border-emerald-500/20">
-                  <Shield className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-white text-base mb-2 font-heading">Turnitin Anti-Plagiarism Check</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                  Ph.D. dissertations, Master theses, and research paper originality verification maintaining similarity scores below 10% under UGC guidelines.
-                </p>
-              </div>
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleChipClick('What is the Turnitin plagiarism submission email?');
-                }}
-                className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 pt-2 cursor-pointer"
-              >
-                <span>Check Guidelines</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+
 
             {/* Card 4 */}
             <div className="glass-card glass-card-hover p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
@@ -343,30 +320,7 @@ export const App: React.FC = () => {
               </button>
             </div>
 
-            {/* Card 6 */}
-            <div className="glass-card glass-card-hover p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
-              <div>
-                <div className="p-3 rounded-xl bg-yellow-500/10 text-yellow-400 w-fit mb-4 border border-yellow-500/20">
-                  <Clock className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-white text-base mb-2 font-heading">24/7 Reading Hall & Hours</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                  Gyanoday Bhavan operating hours: Monday to Saturday 8:00 AM - 8:00 PM. Reading Hall is open 24/7 round-the-clock during exams.
-                </p>
-              </div>
-              <button 
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleChipClick('What are the Gyanoday Bhavan reading hall timings?');
-                }}
-                className="text-xs font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-1 pt-2 cursor-pointer"
-              >
-                <span>View Operating Schedule</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+
           </div>
         </main>
       )}
